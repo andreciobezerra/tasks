@@ -24,7 +24,6 @@ services:
   database:
     container_name: tasks-db
     image: postgres:14.2
-    env_file: .env.development
     ports:
       - "${DB_PORT}:5432"
     environment:

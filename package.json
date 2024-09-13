@@ -18,10 +18,10 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "migration:create": "npx mikro-orm migration:create",
-    "migration:down": "npx mikro-orm migration:down",
-    "migration:up": "npx mikro-orm -- migration:up",
-    "migration:list": "npx mikro-orm -- migration:list"
+    "migration:create": "mikro-orm --config=./src/configs/mikro-orm.config.ts  migration:create",
+    "migration:down": "npx mikro-orm  --config=./src/configs/mikro-orm.config.ts migration:down",
+    "migration:up": "npx mikro-orm --config=./src/configs/mikro-orm.config.ts  migration:up",
+    "migration:list": "npx mikro-orm --config=./src/configs/mikro-orm.config.ts migration:list"
   },
   "dependencies": {
     "@mikro-orm/core": "^6.3.9",
@@ -40,6 +40,7 @@
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
+    "@mikro-orm/cli": "^6.3.9",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
@@ -49,6 +50,7 @@
     "@types/supertest": "^6.0.0",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
+    "dot-env": "^0.0.1",
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
