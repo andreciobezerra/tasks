@@ -1,8 +1,9 @@
 import { ConfigModuleOptions } from "@nestjs/config";
-import Joi from "joi";
+import * as Joi from "joi";
 
 const appConfig: ConfigModuleOptions = {
   isGlobal: true,
+  envFilePath: ["./dev-env/.env.development"],
   validationSchema: Joi.object({
     APP_PORT: Joi.number(),
     DB_HOST: Joi.string().required(),

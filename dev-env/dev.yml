@@ -1,0 +1,42 @@
+version: "3.7"
+
+networks:
+  api-tier:
+    driver: bridge
+
+services:
+  api:
+    container_name: tasks
+    depends_on:
+      database:
+        condition: service_healthy
+    build:
+      context: ../
+      dockerfile: dev-env/dev.Dockerfile
+    ports:
+      - "${APP_PORT}:3000"
+    volumes:
+      - ./..:/app
+    command: npm run start:dev
+    networks:
+      - api-tier
+
+  database:
+    container_name: tasks-db
+    image: postgres:14.2
+    env_file: .env.development
+    ports:
+      - "${DB_PORT}:5432"
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      LC_ALL: C
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 7s
+      timeout: 5s
+    volumes:
+      - ./pgdata/dev:/var/lib/postgresql/data
+    networks:
+      - api-tier
