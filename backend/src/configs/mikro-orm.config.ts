@@ -39,7 +39,8 @@ const cliMikroOrmConfig = defineConfig({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   dbName: process.env.DB_NAME,
-  entities: ["dist/**/*.entity.js"],
+  entities: ["dist/**/entites/*.entity.js"],
+  entitiesTs: ["src/task/entities/*.entity.ts"],
   migrations: {
     pathTs: "src/database/migrations",
     path: "dist/database/migrations",
