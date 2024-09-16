@@ -1,8 +1,8 @@
-import { JobRun } from "./entities/job-run.entity";
+import { CronExpression } from "@nestjs/schedule";
 
 export interface ITask {
   name: string;
-  interval: unknown;
+  interval: CronExpression;
 
-  handle: (data: unknown) => Promise<JobRun> | JobRun;
+  run: (data?: unknown) => Promise<void> | void;
 }

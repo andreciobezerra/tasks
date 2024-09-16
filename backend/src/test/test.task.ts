@@ -1,4 +1,5 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger, LoggerService } from "@nestjs/common";
+import { CronExpression } from "@nestjs/schedule";
 import { JobRun } from "src/task/entities/job-run.entity";
 import { Task } from "src/task/task.decorator";
 import { ITask } from "src/task/task.interface";
@@ -7,11 +8,11 @@ import { ITask } from "src/task/task.interface";
 @Task()
 export class TestTask implements ITask {
   name = "Test";
-  interval = "Xablau";
+  interval = CronExpression.EVERY_MINUTE;
+  private readonly thirtySeconds = 1000 * 30;
 
-  constructor() {}
-  handle(data: unknown) {
-    console.log("data", data);
-    return new JobRun();
+  run(data?: unknown) {
+    Logger.warn(`Job ${this.name} started`);
+    setTimeout(() => Logger.log(`Job ${this.name} finished successlly`), this.thirtySeconds);
   }
 }
