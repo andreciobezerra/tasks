@@ -1,18 +1,18 @@
 import { Module, OnModuleInit } from "@nestjs/common";
-import { DiscoveryModule, DiscoveryService, MetadataScanner, Reflector } from "@nestjs/core";
+import { DiscoveryModule, DiscoveryService, Reflector } from "@nestjs/core";
+import { CronService } from "./cron.service";
 import { TaskDecoratorSymbol } from "./task.decorator";
-import { ITask } from "./task.interface";
-import { TaskService } from "./task.service";
+import { ScheduleModule } from "@nestjs/schedule";
 
 @Module({
-  imports: [DiscoveryModule],
-  providers: [TaskService],
+  imports: [DiscoveryModule, ScheduleModule.forRoot()],
+  providers: [CronService],
 })
 export class TaskModule implements OnModuleInit {
   constructor(
     private readonly discoveryService: DiscoveryService,
     private readonly reflector: Reflector,
-    private readonly taskService: TaskService,
+    private readonly cronService: CronService,
   ) {}
 
   onModuleInit() {
@@ -34,7 +34,7 @@ export class TaskModule implements OnModuleInit {
           Reflect.getMetadata(key, instance.constructor),
         ]);
 
-        this.taskService.setCron(instance);
+        this.cronService.setCron(instance);
         // Preserve exist metadatas for provider
         providerMetaDatas.forEach(([key, value]) =>
           Reflect.defineMetadata(key, value, instance.constructor),
