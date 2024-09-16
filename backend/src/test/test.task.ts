@@ -1,6 +1,5 @@
-import { Injectable, Logger, LoggerService } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { CronExpression } from "@nestjs/schedule";
-import { JobRun } from "src/task/entities/job-run.entity";
 import { Task } from "src/task/task.decorator";
 import { ITask } from "src/task/task.interface";
 
