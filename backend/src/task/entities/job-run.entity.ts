@@ -1,5 +1,5 @@
 import { Entity, Property } from "@mikro-orm/core";
-import { TimeStampEntity } from "src/shared/entites/timestamp.entity";
+import { TimeStampEntity } from "../../shared/entities/timestamp.entity";
 
 @Entity()
 export class JobRun extends TimeStampEntity {
