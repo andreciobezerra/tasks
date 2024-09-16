@@ -42,6 +42,7 @@ const cliMikroOrmConfig = defineConfig({
   entities: ["dist/**/*.entity.js"],
   migrations: {
     pathTs: "src/database/migrations",
+    path: "dist/database/migrations",
   },
   extensions: [Migrator],
   driver: PostgreSqlDriver,
